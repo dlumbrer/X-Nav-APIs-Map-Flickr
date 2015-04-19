@@ -16,3 +16,7 @@ div#results {
   color: black;
   font-size: 75%;
 }
+img {
+	height: 100px;
+	float: left;
+}

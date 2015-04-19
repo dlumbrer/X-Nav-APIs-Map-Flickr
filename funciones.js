@@ -20,7 +20,11 @@ function addr_search() {
             } else {
                 $('<p>', { html: "No results found" }).appendTo('#results');
             }
+            
+            addimages();
       });
+      
+      
 };
 
 function chooseAddr(lat, lng, type) {
@@ -34,6 +38,30 @@ function chooseAddr(lat, lng, type) {
   }
 };
 
+
+//APPI DE FLICKER, EJERCICIO DE ENTREGA
+function addimages(){
+    var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?&tagmode=any&format=json&jsoncallback=?";
+    $("<hr>").appendTo("#results");
+    $("<h4>", {text: "Imágenes:"}).appendTo("#results");
+	$.getJSON(flickerAPI, {
+			tags: $('#addr').val(),
+		  }).done(function( data ) {
+			  $.each( data.items, function(i, item) {
+				 $("<img>").attr("src", item.media.m).appendTo("#results");
+                  if ( i === 4 ) {
+                    return false;
+                  }
+              });
+		  });
+		  
+	$('#boton').click(function(){
+	    location.reload()
+	});
+    
+    
+    
+}
 
 $(document).ready(function() {
     map = L.map('map').setView([40.2838, -3.8215], 16);
